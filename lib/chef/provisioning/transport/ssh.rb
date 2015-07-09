@@ -67,12 +67,12 @@ module Provisioning
 
               channel.on_data do |ch2, data|
                 stdout << data
-                stream_chunk(execute_options, data, nil)
+                stream_chunk(execute_options.merge({ :stream => true }), data, nil)
               end
 
               channel.on_extended_data do |ch2, type, data|
                 stderr << data
-                stream_chunk(execute_options, nil, data)
+                stream_chunk(execute_options.merge({ :stream => true }), nil, data)
               end
 
               channel.on_request "exit-status" do |ch, data|
